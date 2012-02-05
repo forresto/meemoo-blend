@@ -20,15 +20,18 @@
 </head>
 <body>
   
-  <canvas id="blend"></canvas>
+  <canvas id="blend" width="320" height="240"></canvas>
   
   <script type="text/javascript">
 
-    var under_img, over_img, blend_img;
-    var mode = "normal";
-
     var canvas = document.getElementById("blend");
     var context = canvas.getContext("2d");
+
+    var under_img = context.createImageData(320, 240);
+    console.log(under_img);
+    var over_img = context.createImageData(320, 240);
+    var blend_img;
+    var mode = "normal";
 
     function over (image) {
       if (canvas.width < image.width) {
@@ -51,7 +54,7 @@
       }
 
       under_img = image;
-      blend();
+      // blend();
     }
 
     function blend () {
