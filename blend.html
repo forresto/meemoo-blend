@@ -27,8 +27,8 @@
     var canvas = document.getElementById("blend");
     var context = canvas.getContext("2d");
 
-    var under_img = context.createImageData(320, 240);
-    var over_img = context.createImageData(320, 240);
+    var under_img;
+    var over_img;
     var blend_img;
     var mode = "normal";
 
@@ -39,7 +39,9 @@
       if (canvas.height < image.height) {
         canvas.height = image.height;
       }
-
+      if (!under_img) {
+        under_img = context.createImageData(image.width, image.height);
+      }
       over_img = image;
       blend();
     }
@@ -51,13 +53,14 @@
       if (canvas.height < image.height) {
         canvas.height = image.height;
       }
-
       under_img = image;
       // blend();
     }
 
     function blend () {
       if (under_img && over_img) {
+        console.log("o",over_img.width, over_img.height);
+        console.log("u",under_img.width, under_img.height);
         blend_img = window.MeemooBlend(over_img, under_img, mode);
         send();
         context.putImageData(blend_img, 0, 0);

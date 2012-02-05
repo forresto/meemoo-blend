@@ -18,8 +18,8 @@ if (window.CanvasRenderingContext2D && CanvasRenderingContext2D.prototype.getIma
 				offsets[key] = (offsetOptions && offsetOptions[key]) || defaultOffsets[key];
 			}
 		}
-		if (offsets.width =='auto') offsets.width = source.width;
-		if (offsets.height=='auto') offsets.height = source.height;
+		if (offsets.width =='auto') offsets.width = destination.width;
+		if (offsets.height=='auto') offsets.height = destination.height;
 		offsets.width  = Math.min(offsets.width, source.width-offsets.sourceX, destination.width-offsets.destX);
 		offsets.height = Math.min(offsets.height, source.height-offsets.sourceY, destination.height-offsets.destY);
 
