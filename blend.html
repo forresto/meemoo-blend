@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>canvas blend</title>
+  <meta name="author" content="forresto">
+  <meta name="description" content="blend imageData under and over with given mode" />
+  
+  <script src="http://meemoo.org/meemoo/v1/meemoo-min.js"></script>
+  <script src="imagedata-blender.js"></script>
+  
+  <style type="text/css">
+    html, body {
+      margin: 0;
+      padding:0;
+      font-family: verdana;
+      font-size: 10px;
+    }
+  </style>
+</head>
+<body>
+  
+  <canvas id="blend"></canvas>
+  
+  <script type="text/javascript">
+
+    var under_img, over_img, blend_img;
+    var mode = "normal";
+
+    var canvas = document.getElementById("blend");
+    var context = canvas.getContext("2d");
+
+    function over (image) {
+      if (canvas.width < image.width) {
+        canvas.width = image.width;
+      }
+      if (canvas.height < image.height) {
+        canvas.height = image.height;
+      }
+
+      over_img = image;
+      blend();
+    }
+
+    function under (image) {
+      if (canvas.width < image.width) {
+        canvas.width = image.width;
+      }
+      if (canvas.height < image.height) {
+        canvas.height = image.height;
+      }
+
+      under_img = image;
+      blend();
+    }
+
+    function blend () {
+      if (under_img && over_img) {
+        blend_img = window.MeemooBlend(over_img, under_img, mode);
+        send();
+        context.putImageData(blend_img, 0, 0);
+      }
+    }
+
+    function send () {
+      Meemoo.send("image", blend_img);
+    }
+
+    Meemoo
+      .setInfo({
+        title: "canvas blend",
+        author: "forresto",
+        description: "blend imageData under and over with given mode"
+      })
+      .addInputs({
+        over: {
+          action: over,
+          type: "image",
+          description: "over or foreground image"
+        },
+        under: {
+          action: under,
+          type: "image",
+          description: "under or background image"
+        },
+        mode: {
+          action: function(_mode){
+            mode = _mode;
+          },
+          type: "string",
+          description: "normal src-over screen multiply difference src-in plus add overlay hardlight colordodge dodge colorburn burn darken lighten exclusion",
+          default: "normal"
+        },
+        send: {
+          action: send,
+          type: "bang",
+          description: "(re)sends the blended image"
+        }
+      })
+      .addOutputs({
+        image: {
+          type: "image"
+        }
+      });
+  </script>
+  
+</body>
+</html>
