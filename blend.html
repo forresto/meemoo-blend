@@ -32,7 +32,10 @@
     var blend_img;
     var mode = "normal";
 
+    over_first = true;
+
     function over (image) {
+      over_img = image;
       if (canvas.width < image.width) {
         canvas.width = image.width;
       }
@@ -41,20 +44,30 @@
       }
       if (!under_img) {
         under_img = context.createImageData(image.width, image.height);
+        over_first = true;
       }
-      over_img = image;
-      blend();
+      if (over_first) {
+        // Only one of the two inputs should be "hot"
+        blend();
+      }
     }
 
     function under (image) {
+      under_img = image;
       if (canvas.width < image.width) {
         canvas.width = image.width;
       }
       if (canvas.height < image.height) {
         canvas.height = image.height;
       }
-      under_img = image;
-      // blend();
+      if (!over_img) {
+        over_img = context.createImageData(image.width, image.height);
+        over_first = false;
+      }
+      if (!over_first) {
+        // Only one of the two inputs should be "hot"
+        blend();
+      }
     }
 
     function blend () {
