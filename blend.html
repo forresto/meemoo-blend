@@ -46,7 +46,7 @@
         under_img = context.createImageData(image.width, image.height);
         over_first = true;
       }
-      if (!over_first) {
+      if (over_first) {
         // Only one of the two inputs should be "hot"
         blend();
       }
@@ -64,7 +64,7 @@
         over_img = context.createImageData(image.width, image.height);
         over_first = false;
       }
-      if (over_first) {
+      if (!over_first) {
         // Only one of the two inputs should be "hot"
         blend();
       }
