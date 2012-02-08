@@ -72,8 +72,6 @@
 
     function blend () {
       if (under_img && over_img) {
-        console.log("o",over_img.width, over_img.height);
-        console.log("u",under_img.width, under_img.height);
         blend_img = window.MeemooBlend(over_img, under_img, mode);
         send();
         context.putImageData(blend_img, 0, 0);
