@@ -103,8 +103,9 @@
           action: function(_mode){
             mode = _mode;
           },
+          description: "photoshop-like blend modes",
           type: "string",
-          description: "normal src-over screen multiply difference src-in plus add overlay hardlight colordodge dodge colorburn burn darken lighten exclusion",
+          options: "normal src-over screen multiply difference src-in plus add overlay hardlight colordodge dodge colorburn burn darken lighten exclusion".split(" "),
           default: mode
         },
         send: {
